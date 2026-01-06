@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="IslamDecoded / imamlam – strukturierte Videoreihen, um den Islam von Grund auf neu zu lernen. Geschichte, Glaube, Praxis, Gegenwart." />
+  <meta name="theme-color" content="#0b1220" />
+  <title>IslamDecoded / imamlam</title>
+  <style>
+    :root{
+      --bg:#070b14;
+      --bg2:#0b1220;
+      --card:#0e1930cc;
+      --stroke:#203453;
+      --text:#eaf1ff;
+      --muted:#b7c6e6;
+      --brand:#7cc7ff;
+      --brand2:#9bffd7;
+      --shadow: 0 16px 40px rgba(0,0,0,.35);
+      --radius: 18px;
+      --max: 1100px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(900px 500px at 70% 10%, rgba(124,199,255,.18), transparent 60%),
+        radial-gradient(700px 450px at 20% 20%, rgba(155,255,215,.14), transparent 55%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      line-height:1.55;
+      overflow-x:hidden;
+    }
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 70px}
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:10px 0 0;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      letter-spacing:.2px;
+    }
+    .logo{
+      width:40px; height:40px; border-radius:12px;
+      background: linear-gradient(135deg, rgba(124,199,255,.95), rgba(155,255,215,.85));
+      box-shadow: 0 10px 30px rgba(124,199,255,.12);
+      position:relative;
+      overflow:hidden;
+    }
+    .logo:before{
+      content:"";
+      position:absolute; inset:-40%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.5), transparent 55%);
+      transform: rotate(12deg);
+    }
+    .brand h1{
+      margin:0;
+      font-size:16px;
+      font-weight:700;
+    }
+    .brand small{
+      display:block;
+      color:var(--muted);
+      font-size:12px;
+      margin-top:2px;
+      font-family:var(--mono);
+    }
+    nav{
+      display:flex; gap:14px; flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    nav a{
+      color:var(--muted);
+      font-size:13px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid transparent;
+    }
+    nav a:hover{
+      color:var(--text);
+      border-color:rgba(124,199,255,.25);
+      background:rgba(124,199,255,.07);
+    }
+
+    .hero{
+      margin-top:26px;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    @media (max-width: 920px){
+      .hero{grid-template-columns:1fr}
+      nav{justify-content:flex-start; margin-top:12px}
+      .topbar{flex-direction:column; align-items:flex-start}
+    }
+
+    .panel{
+      border:1px solid rgba(32,52,83,.65);
+      background: linear-gradient(180deg, rgba(14,25,48,.72), rgba(14,25,48,.45));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:22px;
+      position:relative;
+      overflow:hidden;
+    }
+    .panel:after{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      background: radial-gradient(600px 220px at 20% 0%, rgba(124,199,255,.12), transparent 60%);
+      pointer-events:none;
+    }
+
+    .kicker{
+      display:inline-flex; align-items:center; gap:8px;
+      font-family:var(--mono);
+      font-size:12px;
+      color:rgba(234,241,255,.9);
+      padding:6px 10px;
+      border-radius:999px;
+      background:rgba(124,199,255,.08);
+      border:1px solid rgba(124,199,255,.25);
+      position:relative;
+      z-index:1;
+    }
+    .dot{width:7px;height:7px;border-radius:50%;background:var(--brand); box-shadow:0 0 0 4px rgba(124,199,255,.16)}
+    .title{
+      margin:14px 0 10px;
+      font-size:36px;
+      line-height:1.12;
+      letter-spacing:-.5px;
+      position:relative;
+      z-index:1;
+    }
+    .subtitle{
+      margin:0 0 18px;
+      color:var(--muted);
+      font-size:15px;
+      position:relative;
+      z-index:1;
+    }
+    .cta{
+      display:flex; gap:10px; flex-wrap:wrap;
+      position:relative;
+      z-index:1;
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      padding:11px 14px;
+      border-radius:12px;
+      border:1px solid rgba(124,199,255,.30);
+      background: rgba(124,199,255,.10);
+      color:var(--text);
+      font-weight:650;
+      font-size:14px;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .btn:hover{transform: translateY(-1px); background: rgba(124,199,255,.14); border-color: rgba(124,199,255,.45)}
+    .btn.primary{
+      border-color: rgba(155,255,215,.45);
+      background: linear-gradient(135deg, rgba(124,199,255,.22), rgba(155,255,215,.18));
+    }
+    .btn.secondary{
+      border-color: rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: rgba(234,241,255,.92);
+    }
+
+    .mini-card{
+      display:grid;
+      gap:12px;
+    }
+    .stat{
+      border:1px solid rgba(32,52,83,.55);
+      border-radius:16px;
+      padding:14px;
+      background: rgba(7,11,20,.25);
+      position:relative;
+      overflow:hidden;
+    }
+    .stat b{display:block; font-size:14px; margin-bottom:4px}
+    .stat span{color:var(--muted); font-size:13px}
+    .pillrow{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px}
+    .pill{
+      font-family:var(--mono);
+      font-size:11px;
+      color:rgba(234,241,255,.86);
+      border:1px solid rgba(124,199,255,.22);
+      background: rgba(124,199,255,.06);
+      padding:6px 9px;
+      border-radius:999px;
+      white-space:nowrap;
+    }
+
+    section{margin-top:18px}
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+      margin-top:14px;
+    }
+    @media (max-width: 920px){
+      .grid{grid-template-columns:1fr}
+    }
+    .card{
+      border:1px solid rgba(32,52,83,.60);
+      background: rgba(14,25,48,.42);
+      border-radius: var(--radius);
+      padding:16px;
+      box-shadow: 0 10px 24px rgba(0,0,0,.22);
+    }
+    .card h3{margin:4px 0 6px; font-size:16px}
+    .card p{margin:0; color:var(--muted); font-size:13px}
+    .card .meta{
+      margin-top:12px;
+      font-family:var(--mono);
+      font-size:11px;
+      color:rgba(234,241,255,.78);
+      display:flex; gap:10px; flex-wrap:wrap;
+    }
+    .meta i{font-style:normal; opacity:.85}
+    .section-title{
+      margin:0;
+      font-size:18px;
+      letter-spacing:-.2px;
+    }
+    .section-note{
+      margin:6px 0 0;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .footer{
+      margin-top:26px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      color:rgba(183,198,230,.88);
+      font-size:12px;
+    }
+    .links{display:flex; gap:10px; flex-wrap:wrap}
+    .links a{
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.05);
+    }
+    .links a:hover{border-color:rgba(124,199,255,.30); background: rgba(124,199,255,.07)}
+    .smallprint{opacity:.85}
+    .hr{
+      height:1px;
+      background: linear-gradient(90deg, transparent, rgba(124,199,255,.25), transparent);
+      margin:18px 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <!-- TOP -->
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>IslamDecoded</h1>
+          <small>@imamlam</small>
+        </div>
+      </div>
+
+      <nav aria-label="Navigation">
+        <a href="#serien">Serien</a>
+        <a href="#ueberblick">Worum geht’s?</a>
+        <a href="#start">Start hier</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+    </div>
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="panel">
+        <div class="kicker"><span class="dot"></span> Strukturierte Videoreihen · Kurz & verständlich</div>
+        <h2 class="title">Den Islam von Grund auf neu lernen – Schritt für Schritt.</h2>
+        <p class="subtitle">
+          IslamDecoded ist eine fortlaufende Wissensserie: historischer Kontext, Entstehung, Glaubensgrundlagen,
+          Praxis und Entwicklung bis in die Gegenwart – sachlich, geordnet und ohne Vorwissen.
+        </p>
+
+        <div class="cta">
+          <!-- TODO: YouTube-Link einsetzen -->
+          <a class="btn primary" href="https://www.youtube.com/" target="_blank" rel="noopener">Zum YouTube-Kanal</a>
+          <a class="btn secondary" href="#start">Serien-Einstieg</a>
+          <!-- TODO: Playlist-Link einsetzen -->
+          <a class="btn" href="https://www.youtube.com/" target="_blank" rel="noopener">Playlist: Staffel 1</a>
+        </div>
+      </div>
+
+      <div class="panel mini-card">
+        <div class="stat">
+          <b>Format</b>
+          <span>YouTube Shorts (kompakt), ergänzt durch Reihen/Staffeln</span>
+          <div class="pillrow">
+            <span class="pill">30–60s</span>
+            <span class="pill">chronologisch</span>
+            <span class="pill">thematisch</span>
+          </div>
+        </div>
+        <div class="stat">
+          <b>Ansatz</b>
+          <span>Neutraler Erklärstil: Kontext → Kernaussage → Übergang</span>
+          <div class="pillrow">
+            <span class="pill">klar</span>
+            <span class="pill">strukturiert</span>
+            <span class="pill">nachvollziehbar</span>
+          </div>
+        </div>
+        <div class="stat">
+          <b>Themenfelder</b>
+          <span>Geschichte · Glaube · Praxis · Ethik · Gegenwart</span>
+          <div class="pillrow">
+            <span class="pill">Staffeln</span>
+            <span class="pill">Reihen</span>
+            <span class="pill">Glossar</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTIONS -->
+    <section id="ueberblick" class="panel">
+      <h2 class="section-title">Worum geht’s?</h2>
+      <p class="section-note">
+        Diese Seite ist die zentrale Übersicht: Was kommt als Nächstes, wo du einsteigen kannst und wie die Reihen aufgebaut sind.
+      </p>
+      <div class="hr"></div>
+      <div class="grid">
+        <div class="card">
+          <h3>1) Historischer Kontext</h3>
+          <p>Vorbedingungen: Arabische Halbinsel, Gesellschaft, Handel, Religionen vor dem 7. Jahrhundert.</p>
+          <div class="meta"><i>Staffel 1</i> <i>Grundlage für alles</i></div>
+        </div>
+        <div class="card">
+          <h3>2) Entstehung & frühe Geschichte</h3>
+          <p>Die Anfangsphase des Islams und zentrale Stationen der frühen Gemeinschaft.</p>
+          <div class="meta"><i>Staffeln 2–4</i> <i>chronologisch</i></div>
+        </div>
+        <div class="card">
+          <h3>3) Glaube & Praxis</h3>
+          <p>Glaubensgrundlagen, religiöse Praxis, zentrale Begriffe – klar erklärt.</p>
+          <div class="meta"><i>Staffeln 4–6</i> <i>systematisch</i></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="serien" class="panel">
+      <h2 class="section-title">Serienübersicht</h2>
+      <p class="section-note">Mehrere Reihen, die zusammen ein vollständiges Bild ergeben. Jede Folge baut auf der vorherigen auf.</p>
+      <div class="hr"></div>
+      <div class="grid">
+        <div class="card">
+          <h3>Staffel 1: Welt vor dem Islam</h3>
+          <p>Geografie, Stämme, Handel und religiöse Landschaft – der Ausgangspunkt.</p>
+          <div class="meta"><i>Startpunkt</i> <i>Kontext</i></div>
+        </div>
+        <div class="card">
+          <h3>Staffel 2: Die Anfänge</h3>
+          <p>Wie der Islam im 7. Jahrhundert entsteht und sich formt.</p>
+          <div class="meta"><i>Entstehung</i> <i>Chronologie</i></div>
+        </div>
+        <div class="card">
+          <h3>Staffel 3+: Erweiterungen</h3>
+          <p>Glaubensinhalte, Praxis, Ethik, Geschichte danach und Islam heute.</p>
+          <div class="meta"><i>modular</i> <i>laufend</i></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="start" class="panel">
+      <h2 class="section-title">Start hier</h2>
+      <p class="section-note">
+        Empfohlener Einstieg für neue Zuschauer: Intro → Staffel 1 Folge 1 → Staffel 1 komplett.
+      </p>
+      <div class="hr"></div>
+      <div class="grid">
+        <div class="card">
+          <h3>1) Kanal-Intro</h3>
+          <p>Worum es geht, wie die Reihen aufgebaut sind, und wie du folgen kannst.</p>
+          <div class="meta"><i>~15–30s</i> <i>Orientierung</i></div>
+        </div>
+        <div class="card">
+          <h3>2) Staffel 1 · Folge 1</h3>
+          <p>Die arabische Halbinsel vor dem Islam – geografischer und gesellschaftlicher Rahmen.</p>
+          <div class="meta"><i>Kontext</i> <i>Grundlage</i></div>
+        </div>
+        <div class="card">
+          <h3>3) Playlist „Staffel 1“</h3>
+          <p>Alle Folgen gesammelt – ideal für das Lernen in Reihenfolge.</p>
+          <div class="meta"><i>Playlist</i> <i>Fortlaufend</i></div>
+        </div>
+      </div>
+      <div class="cta" style="margin-top:14px">
+        <!-- TODO: Links ersetzen -->
+        <a class="btn primary" href="https://www.youtube.com/" target="_blank" rel="noopener">Intro ansehen</a>
+        <a class="btn" href="https://www.youtube.com/" target="_blank" rel="noopener">Staffel 1 · Folge 1</a>
+        <a class="btn secondary" href="https://www.youtube.com/" target="_blank" rel="noopener">Zur Staffel-1-Playlist</a>
+      </div>
+    </section>
+
+    <section id="kontakt" class="panel">
+      <h2 class="section-title">Kontakt</h2>
+      <p class="section-note">
+        Für sachliche Rückmeldungen, Korrekturhinweise oder Themenvorschläge.
+      </p>
+      <div class="hr"></div>
+
+      <div class="grid">
+        <div class="card">
+          <h3>E-Mail</h3>
+          <p>Trage hier deine Kontaktadresse ein.</p>
+          <div class="meta"><i>kontakt@deinedomain.tld</i></div>
+        </div>
+        <div class="card">
+          <h3>Social / Links</h3>
+          <p>Optional: Instagram/TikTok/Linktree.</p>
+          <div class="meta"><i>@imamlam</i></div>
+        </div>
+        <div class="card">
+          <h3>Impressum / Datenschutz</h3>
+          <p>Je nach Land/Region können Pflichtangaben nötig sein.</p>
+          <div class="meta"><i>rechtlich prüfen</i></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      <div class="smallprint">© <span id="y"></span> IslamDecoded / @imamlam · Wissensformat</div>
+      <div class="links">
+        <!-- TODO: Links ersetzen -->
+        <a href="https://www.youtube.com/" target="_blank" rel="noopener">YouTube</a>
+        <a href="#serien">Serien</a>
+        <a href="#kontakt">Kontakt</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
